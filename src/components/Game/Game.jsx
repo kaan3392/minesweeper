@@ -6,21 +6,30 @@ import {
   changeFlag,
   isWon,
 } from "../../utils";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { context } from "../../context";
+import Modal from "../Modal/Modal";
 
 const Game = () => {
-  const [dimension, setDimension] = useState({
-    width: 20,
-    height: 20,
-    mines: 30,
-  });
+  const {
+    state: { mines },
+  } = useContext(context);
+  // const [dimension, setDimension] = useState({
+  //   width: 15,
+  //   height: 15,
+  //   mines,
+  // });
 
+  const dimension = {
+    width: 15,
+    height: 15,
+    mines,
+  };
   const [array2D, setArray2D] = useState(() => initializeArray2D(dimension));
   const [flag, setFlag] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
-
   const [totalReveal, setTotalReveal] = useState({ total: 0 });
-  const [gameWon, setGameWon] = useState(false);
+  const [gameWon, setGameWon] = useState(null);
 
   const startNewGame = () => {
     setArray2D(initializeArray2D(dimension));
@@ -40,7 +49,6 @@ const Game = () => {
       if (col.isMine) {
         setArray2D([...revealAll(array2D)]);
         setIsGameOver(true);
-        alert("You're loser");
       } else {
         setArray2D([
           ...revealChain(array2D, dimension, col.x, col.y, totalReveal),
@@ -52,17 +60,17 @@ const Game = () => {
 
   useEffect(() => {
     setGameWon(isWon(dimension, totalReveal));
-    console.log(totalReveal.total);
   }, [totalReveal.total]);
 
-  useEffect(() => {
-    if (gameWon) {
-      alert("You're winner");
-    }
-  }, [gameWon]);
+  console.log(gameWon);
 
   return (
     <S.Container>
+      <Modal
+        startNewGame={startNewGame}
+        isWon={gameWon}
+        isGameOver={isGameOver}
+      />
       <S.Wrapper>
         <S.GridSystem width={dimension.width} height={dimension.height}>
           {array2D.map((row, indexW) => {
@@ -95,6 +103,7 @@ const Game = () => {
         <S.Button picked={flag} onClick={() => setFlag((prev) => !prev)}>
           Flag
         </S.Button>
+        <S.BoardPage to="/">Board</S.BoardPage>
       </S.ButtonContainer>
     </S.Container>
   );
