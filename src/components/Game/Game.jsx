@@ -14,11 +14,6 @@ const Game = () => {
   const {
     state: { mines },
   } = useContext(context);
-  // const [dimension, setDimension] = useState({
-  //   width: 15,
-  //   height: 15,
-  //   mines,
-  // });
 
   const dimension = {
     width: 15,
@@ -45,7 +40,6 @@ const Game = () => {
       setFlag(false);
     } else {
       if (col.isFlagged) return;
-
       if (col.isMine) {
         setArray2D([...revealAll(array2D)]);
         setIsGameOver(true);
@@ -62,49 +56,56 @@ const Game = () => {
     setGameWon(isWon(dimension, totalReveal));
   }, [totalReveal.total]);
 
-  console.log(gameWon);
 
   return (
     <S.Container>
-      <Modal
-        startNewGame={startNewGame}
-        isWon={gameWon}
-        isGameOver={isGameOver}
-      />
       <S.Wrapper>
-        <S.GridSystem width={dimension.width} height={dimension.height}>
-          {array2D.map((row, indexW) => {
-            return row.map((column, indexH) => {
-              return (
-                <S.Cell
-                  onClick={() => handleClick(column)}
-                  isEmpty={column.isEmpty && !column.isMine}
-                  isRevealed={column.isRevealed}
-                  data-dimension={`${indexW}-${indexH}`}
-                  key={`${indexW}-${indexH}`}
-                >
-                  {isGameOver && column.isMine
-                    ? "💣"
-                    : column.isRevealed
-                    ? column.isMine
+        <S.TitleContainer>
+          <S.Title>
+            Level: {mines === 30 ? "Easy" : mines === 50 ? "Medium" : "Hard"}
+          </S.Title>
+          <S.Title>💣: {mines}</S.Title>
+        </S.TitleContainer>
+        <Modal
+          startNewGame={startNewGame}
+          isWon={gameWon}
+          isGameOver={isGameOver}
+        />
+        <S.GridWrapper>
+          <S.GridSystem width={dimension.width} height={dimension.height}>
+            {array2D.map((row, indexW) => {
+              return row.map((column, indexH) => {
+                return (
+                  <S.Cell
+                    onClick={() => handleClick(column)}
+                    isEmpty={column.isEmpty && !column.isMine}
+                    isRevealed={column.isRevealed}
+                    data-dimension={`${indexW}-${indexH}`}
+                    key={`${indexW}-${indexH}`}
+                  >
+                    {isGameOver && column.isMine
                       ? "💣"
-                      : `${column.neighbors || ""}`
-                    : column.isFlagged
-                    ? "🚩"
-                    : ""}
-                </S.Cell>
-              );
-            });
-          })}
-        </S.GridSystem>
+                      : column.isRevealed
+                      ? column.isMine
+                        ? "💣"
+                        : `${column.neighbors || ""}`
+                      : column.isFlagged
+                      ? "🚩"
+                      : ""}
+                  </S.Cell>
+                );
+              });
+            })}
+          </S.GridSystem>
+        </S.GridWrapper>
+        <S.ButtonContainer>
+          <S.Button onClick={startNewGame}>Restart</S.Button>
+          <S.Button picked={flag} onClick={() => setFlag((prev) => !prev)}>
+            Flag
+          </S.Button>
+          <S.BoardPage to="/">Board</S.BoardPage>
+        </S.ButtonContainer>
       </S.Wrapper>
-      <S.ButtonContainer>
-        <S.Button onClick={startNewGame}>Restart</S.Button>
-        <S.Button picked={flag} onClick={() => setFlag((prev) => !prev)}>
-          Flag
-        </S.Button>
-        <S.BoardPage to="/">Board</S.BoardPage>
-      </S.ButtonContainer>
     </S.Container>
   );
 };

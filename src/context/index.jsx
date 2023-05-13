@@ -8,16 +8,12 @@ export const context = createContext(initialState);
 
 const levelReducer = (state, action) => {
   switch (action.type) {
-    case "beginner":
-      return { ...state, mines: 10 };
     case "easy":
       return { ...state, mines: 30 };
     case "medium":
-      return { ...state, mines: 60 };
+      return { ...state, mines: 50 };
     case "hard":
-      return { ...state, mines: 75 };
-    case "expert":
-      return { ...state, mines: 110 };
+      return { ...state, mines: 70 };
     default:
       return state;
   }
@@ -37,4 +33,3 @@ export const ContextProvider = ({ children }) => {
     </context.Provider>
   );
 };
-

@@ -45,7 +45,9 @@ const Board = () => {
       <S.Wrapper>
         <S.Title>💣</S.Title>
         <S.ArrowContainer>
-          <S.Arrow onClick={() => pickLevel("left")}>⬅</S.Arrow>
+          <S.Arrow left={true} level={level} onClick={() => pickLevel("left")}>
+            ⬅
+          </S.Arrow>
           <S.PickedLevel>
             <S.LevelContainer ref={slideContainerRef}>
               {levels.map((level) => (
@@ -55,7 +57,13 @@ const Board = () => {
               ))}
             </S.LevelContainer>
           </S.PickedLevel>
-          <S.Arrow onClick={() => pickLevel("right")}>➡</S.Arrow>
+          <S.Arrow
+            right={true}
+            level={level}
+            onClick={() => pickLevel("right")}
+          >
+            ➡
+          </S.Arrow>
         </S.ArrowContainer>
 
         <S.NewGame onClick={startNewGame}>New Game</S.NewGame>

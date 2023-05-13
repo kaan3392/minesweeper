@@ -5,17 +5,42 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-  background-color: black;
   flex-direction: column;
-  gap: 20px;
-  cursor: pointer;
   position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background-color: black;
+  cursor: pointer;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  height: 90%;
+  gap: 20px;
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+  min-width: 500px;
+`;
+
+export const Title = styled.h1`
+  font-size: 40px;
+  color: white;
+  @media only screen and (max-width: 768px) {
+    font-size: 30px;
+  }
 `;
 
 export const Modal = styled.div`
-
   position: absolute;
   top: 0;
   bottom: 0;
@@ -28,20 +53,24 @@ export const Modal = styled.div`
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;
-  
-`
+`;
 
-export const Wrapper = styled.div`
+export const GridWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: green;
+  width: 50%;
+  height: 80%;
+  min-width: 500px;
 `;
 
 export const GridSystem = styled.div`
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: ${(props) => `repeat(${props.width},35px)`};
-  grid-template-rows: ${(props) => `repeat(${props.height},35px)`};
+  grid-template-columns: ${(props) => `repeat(${props.width},1fr)`};
+  grid-template-rows: ${(props) => `repeat(${props.height},1fr)`};
 `;
 
 export const Cell = styled.div`
@@ -62,16 +91,20 @@ export const ButtonContainer = styled.div`
 
 export const Button = styled.button`
   width: 75px;
-  height: 50px;
   cursor: pointer;
   background-color: ${(props) => (props.picked ? "red" : "green")};
   outline: none;
   border: none;
   border-radius: 5px;
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
+
 export const BoardPage = styled(Link)`
   width: 75px;
-  height: 50px;
   cursor: pointer;
   background-color: green;
   text-decoration: none;
@@ -81,5 +114,10 @@ export const BoardPage = styled(Link)`
   justify-content: center;
   outline: none;
   border: none;
-  border-radius:5px;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;

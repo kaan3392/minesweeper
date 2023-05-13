@@ -18,9 +18,8 @@ export const Modal = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  width: 30%;
   min-height: 80px;
-  background-color: gray;
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
@@ -37,7 +36,6 @@ export const Text = styled.p`
 
 export const NewGame = styled.button`
   min-width: 100px;
-  height: 50px;
   cursor: pointer;
   background-color: green;
   outline: none;

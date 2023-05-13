@@ -105,7 +105,6 @@ export const revealChain = (array2D, dimension, row, column, totalReveal) => {
 
   newArray2D[row][column].isRevealed = true;
   totalReveal.total++;
-  console.log(totalReveal);
 
   if (newArray2D[row][column].isEmpty) {
     revealChain(newArray2D, dimension, row - 1, column - 1, totalReveal);
